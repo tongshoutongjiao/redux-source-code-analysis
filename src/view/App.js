@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
-import Add from './Components/Add'
-import Subtract from './Components/Subtract'
+// import Add from './Components/Add'
+// import Subtract from './Components/Subtract'
 import Button from './Components/Button'
 
 import * as Actions from './Actions'
@@ -40,13 +40,12 @@ export default class App extends Component {
   }
   
   subtract = () => {
-    const {num} = this.props
     // todo 减
+    console.log('dispatch', this.context.store.dispatch(Actions.subtractAction()))
     this.context.store.dispatch(Actions.subtractAction())
   }
   
   add = () => {
-    const {num} = this.props
     // todo 加
     this.context.store.dispatch(Actions.addAction())
   

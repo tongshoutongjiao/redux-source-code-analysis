@@ -6,9 +6,9 @@ import store from './Store';
 import App from './view/App';
 import registerServiceWorker from './registerServiceWorker';
 
-store.subscribe(() => {
-  console.log('store:', store.getState())
-})
+// store.subscribe(() => {
+//   console.log('store:', store.getState())
+// })
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,11 +1,7 @@
-import {createStore} from 'redux'
+import createStore from './createStore'
 
 import reducer from './view/Reducer'
 
-const initialState = {
-  total: 0
-}
-
-const store = createStore(reducer, initialState)
+const store = createStore(reducer)
 
 export default store
