@@ -1,6 +1,6 @@
 // store.js
 
-import createStore from './createStore'
+import {createStore} from 'redux'
 
 import reducer from './view/Reducer'
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux'
+
 
 import Button from './Components/Button'
 
@@ -7,49 +9,21 @@ import * as Actions from './Actions'
 
 import './App.css';
 
-export default class App extends Component {
-  
-  static contextTypes = {
-    store: PropTypes.object
-  }
-  
-  constructor(props, context) {
-    super(props, context)
-    this.state = this.getState()
-  }
-  
-  onChange = () => {
-    this.setState(this.getState())
-  }
-  
-  componentDidMount() {
-    // 监听 store 的变化
-    this.context.store.subscribe(this.onChange)
-  }
-  
-  componentWillUnmount() {
-    // 去掉监听
-    this.context.store.unsubscribe(this.onChange);
-  }
-  
-  getState = () => {
-    return this.context.store.getState()
-  }
-  
+class App extends Component {
+
   subtract = () => {
     //  减
-    this.context.store.dispatch(Actions.subtractAction())
+    this.props.subtractAction()
   }
   
   add = () => {
     //  加
-    this.context.store.dispatch(Actions.addAction())
+    this.props.addAction()
   
   }
   
   render() {
-    const {total} = this.state
-    console.log('this.context', this.context)
+    const {total} = this.props
     return (
       <div className="App">
         <header className="App-header">
@@ -65,3 +39,14 @@ export default class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  total: state.total
+})
+
+const marDispatchToProps = dispatch => {
+  return bindActionCreators({
+    ...Actions
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, marDispatchToProps)(App)
