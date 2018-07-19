@@ -50,7 +50,6 @@ function isPlainObject(obj) {
  * and subscribe to changes.
  */
 export default function createStore(reducer, preloadedState, enhancer) {
-  debugger
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
     enhancer = preloadedState
     preloadedState = undefined
@@ -121,7 +120,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * @returns {Function} A function to remove this change listener.
    */
   function subscribe(listener) {
-    console.log('listener', listener)
     if (typeof listener !== 'function') {
       throw new Error('Expected the listener to be a function.')
     }
@@ -224,7 +222,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
     
     // 执行订阅队列中的方法
     const listeners = (currentListeners = nextListeners)
-    console.log('dispatch---listeners', listeners[0])
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i]
       listener()

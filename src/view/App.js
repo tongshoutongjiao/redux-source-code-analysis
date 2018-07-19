@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 
-// import Add from './Components/Add'
-// import Subtract from './Components/Subtract'
 import Button from './Components/Button'
 
 import * as Actions from './Actions'
-
 
 import './App.css';
 
@@ -40,20 +37,19 @@ export default class App extends Component {
   }
   
   subtract = () => {
-    // todo 减
-    console.log('dispatch', this.context.store.dispatch(Actions.subtractAction()))
+    //  减
     this.context.store.dispatch(Actions.subtractAction())
   }
   
   add = () => {
-    // todo 加
+    //  加
     this.context.store.dispatch(Actions.addAction())
   
   }
   
   render() {
     const {total} = this.state
-    console.log('this.context', this.context.store)
+    console.log('this.context', this.context)
     return (
       <div className="App">
         <header className="App-header">
