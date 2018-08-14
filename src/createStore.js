@@ -5,22 +5,22 @@ const randomString = () =>
     .toString(36)
     .substring(7)
     .split('')
-    .join('.')
+    .join('.');
 
 const ActionTypes = {
   INIT: `@@redux/INIT${randomString()}`,
   REPLACE: `@@redux/REPLACE${randomString()}`,
   PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${randomString()}`
-}
+};
 
 function isPlainObject(obj) {
   if (typeof obj !== 'object' || obj === null) return false
   
-  let proto = obj
+  let proto = obj;
   while (Object.getPrototypeOf(proto) !== null) {
     proto = Object.getPrototypeOf(proto)
   }
-  
+
   return Object.getPrototypeOf(obj) === proto
 }
 
@@ -49,9 +49,17 @@ function isPlainObject(obj) {
  * @returns {Store} A Redux store that lets you read the state, dispatch actions
  * and subscribe to changes.
  */
+
+// reducer   state    enhancer
+
+// 返回值 obj
+//    dispatch     subscribe    getState
+
+
+
 export default function createStore(reducer, preloadedState, enhancer) {
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
-    enhancer = preloadedState
+    enhancer = preloadedState;
     preloadedState = undefined
   }
   
@@ -67,11 +75,11 @@ export default function createStore(reducer, preloadedState, enhancer) {
     throw new Error('Expected the reducer to be a function.')
   }
   
-  let currentReducer = reducer
-  let currentState = preloadedState
-  let currentListeners = []
-  let nextListeners = currentListeners
-  let isDispatching = false
+  let currentReducer = reducer;
+  let currentState = preloadedState;
+  let currentListeners = [];
+  let nextListeners = currentListeners;
+  let isDispatching = false;
   
   function ensureCanMutateNextListeners() {
     if (nextListeners === currentListeners) {
@@ -133,10 +141,10 @@ export default function createStore(reducer, preloadedState, enhancer) {
       )
     }
     
-    let isSubscribed = true
+    let isSubscribed = true;
     
-    ensureCanMutateNextListeners()
-    nextListeners.push(listener)
+    ensureCanMutateNextListeners();
+    nextListeners.push(listener);
     
     return function unsubscribe() {
       if (!isSubscribed) {
@@ -184,6 +192,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
    * return something else (for example, a Promise you can await).
    */
   function dispatch(action) {
+
+    console.log(isPlainObject(action));
     
     // 要求 action 必须是简单对象
     if (!isPlainObject(action)) {
@@ -207,23 +217,29 @@ export default function createStore(reducer, preloadedState, enhancer) {
     }
     
     try {
-      isDispatching = true
+      isDispatching = true;
       
       /*
       * 把当前的 state(currentState) 和接收到的 action 传给接收到
       * 的 reducer 方法(currentReducer)，并把 reducer 处理后返回
       * 的 state 赋值给 currentState
       * */
+
+      console.log('当前的state 和接收到的action');
+      console.log(action);
+      console.log(currentState);
       currentState = currentReducer(currentState, action)
+      console.log(currentState)
     } finally {
       // 修改标识位
       isDispatching = false
     }
     
     // 执行订阅队列中的方法
-    const listeners = (currentListeners = nextListeners)
+
+    const listeners = (currentListeners = nextListeners);
     for (let i = 0; i < listeners.length; i++) {
-      const listener = listeners[i]
+      const listener = listeners[i];
       listener()
     }
     
@@ -292,8 +308,13 @@ export default function createStore(reducer, preloadedState, enhancer) {
   // When a store is created, an "INIT" action is dispatched so that every
   // reducer returns their initial state. This effectively populates
   // the initial state tree.
-  dispatch({ type: ActionTypes.INIT })
-  
+
+
+
+
+   dispatch({ type: ActionTypes.INIT });
+
+
   return {
     dispatch,
     subscribe,

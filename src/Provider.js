@@ -11,11 +11,12 @@ class Provider extends Component{
   }
 
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.store = props.store
   }
   
   render() {
+    console.log(this);
     return Children.only(this.props.children)
   }
 }
@@ -23,11 +24,11 @@ class Provider extends Component{
 Provider.propTypes = {
   store: PropTypes.object,
   children: PropTypes.element.isRequired
-}
+};
 
 // 声明 Context 对象属性
 Provider.childContextTypes = {
   store: PropTypes.object,
-}
+};
   
 export default Provider

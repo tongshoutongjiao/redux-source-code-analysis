@@ -1,11 +1,14 @@
 import * as ActionTypes from './ActionTypes'
 
+console.log('reducer');
+console.log(ActionTypes);
 const initialState = {
   total: 0
-}
+};
 
 export default (state = initialState, action) => {
-  const {total} = state
+  const {total} = state;
+
   switch(action.type){
     case ActionTypes.ADD:
       // 加

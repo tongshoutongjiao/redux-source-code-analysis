@@ -50,7 +50,7 @@ export default class App extends Component {
   render() {
     const {total} = this.state
     console.log('this.context', this.context)
-    return (
+          return (
       <div className="App">
         <header className="App-header">
           Redux Test
